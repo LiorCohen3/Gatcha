@@ -1,7 +1,6 @@
-#include "Player.h"
+#include "ShellColor.h"
 
 /*-------------------------------------------------------------------------------*/
-Player::Player(std::string name)
+ShellColor::ShellColor()
 	:
-	m_name(name),
-	m_money(200) {}
+	m_color("None") {}

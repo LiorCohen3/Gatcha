@@ -9,6 +9,5 @@ public:
     Toy();
     ~Toy();
 private:
-    Rarity m_rarity;
 };
 

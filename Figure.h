@@ -6,8 +6,8 @@ class Figure
 {
 public:
 	Figure();
-	virtual ~Figure();
-	virtual Series GetCategory() = 0;
+	virtual ~Figure() = 0;
+	virtual Series GetCategory();
 private:
 	Series m_theme;
 };

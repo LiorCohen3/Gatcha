@@ -1,7 +1,8 @@
 #pragma once
 enum Series
 {
-	DragonBallZ = 1,
+	None = 0,
+	DragonBallZ,
 	Naruto,
 	Pokemon,
 	AttackOnTitan,

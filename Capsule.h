@@ -1,16 +1,19 @@
 #pragma once
-#include "ShellType.h"
+#include "ShellColor.h"
 
 class Capsule :
-    public ShellType
+    public ShellColor
 {
 public:
     Capsule();
-    virtual ~Capsule();
-    virtual int CalculateWorth();
-    virtual std::string GetType() = 0;
-    virtual std::string GetName() = 0;
+    virtual ~Capsule() = 0;
+    virtual float CalculateRarity();
+    CapType GetType() { return m_type; }
+    std::string GetName() { return m_name; }
 private:
-    std::string m_name;
+    std::string     m_name;
+    Rarity          m_rarity;
+    int             m_worth;
+    CapType         m_type;
 };
 

@@ -5,8 +5,8 @@ class Edible
 {
 public:
 	Edible();
-	virtual ~Edible();
-	virtual std::string GetFlavor() = 0;
+	virtual ~Edible() = 0;
+	virtual std::string GetFlavor();
 private:
 	std::string m_flavor;
 };

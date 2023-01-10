@@ -1,15 +1,15 @@
 #pragma once
-#include "Capsule.h"
+#include "GatchaMachine.h"
 class Player
 {
 public:
-	Player();
+	Player(std::string name);
 	~Player();
-	Capsule PlayMachine(int);
+	void PlayMachine(GatchaMachine machine);
 	int CalculateEarnings();
 private:
-	std::string m_name;
-	int			m_money;
-	Capsule**	m_capsules_won;
+	std::string				m_name;
+	int						m_money;
+	std::vector<Capsule*>	m_capsules_won;
 };
 

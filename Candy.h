@@ -9,6 +9,5 @@ public:
     Candy();
     ~Candy();
 private:
-    Rarity m_rarity;
 };
 
