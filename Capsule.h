@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 #include "ShellColor.h"
 
 class Capsule :
@@ -6,7 +7,8 @@ class Capsule :
 {
 public:
     Capsule();
-    virtual ~Capsule() = 0;
+    Capsule(std::string name, Rarity rarity, int worth, CapType type, std::string color);
+    virtual ~Capsule() = 0; // abstract
     virtual float CalculateRarity();
     CapType GetType() { return m_type; }
     std::string GetName() { return m_name; }

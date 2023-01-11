@@ -7,6 +7,7 @@ class Toy :
 {
 public:
     Toy();
+    Toy(std::string name, Rarity rarity, int worth, CapType type, std::string color, Series theme);
     ~Toy();
 private:
 };
