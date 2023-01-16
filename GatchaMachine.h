@@ -13,8 +13,15 @@ public:
     GatchaMachine();
     GatchaMachine(Series theme, int capsule_cost, vector<Capsule*> capsules, std::string color);
     ~GatchaMachine();
-    Capsule RollForFigure(int num);
-    bool InsertCapsule(Capsule capsule);
+
+    int RollForCapsule(int num);
+    bool InsertCapsule(Capsule* capsule);
+    Series GetTheme() { return m_theme; }
+    int GetPrice() { return m_capsule_cost; }
+    void InsertCapsuleFromExtra(Capsule* capsule);
+    void AddEpicsFromExtra(int num);
+    void AddLegendarysFromExtra();
+    void DeleteExtras() { m_extra_capsules.clear(); }
 private:
     Series                  m_theme;
     int                     m_capsule_cost;

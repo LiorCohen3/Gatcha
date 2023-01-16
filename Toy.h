@@ -1,5 +1,4 @@
 #pragma once
-#include "Figure.h"
 #include "Capsule.h"
 class Toy :
     public Figure,

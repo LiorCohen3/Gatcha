@@ -2,11 +2,11 @@
 /*-------------------------------------------------------------------------------*/
 Capsule::Capsule()
     :
-    m_name(" "),
+    m_name(""),
     m_rarity(),
     m_type(),
     m_worth(),
-    ShellColor(" ") // color
+    ShellColor("") // color
     {}
 /*-------------------------------------------------------------------------------*/
 Capsule::Capsule(std::string name, Rarity rarity, int worth, CapType type, std::string color)
