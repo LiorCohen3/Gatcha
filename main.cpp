@@ -1,8 +1,8 @@
 #include "Player.h"
 const int MAX_MACHINES = 10;
-const int MAX_CAPSULES = 100;
+const int MAX_CAPSULES = 50;
 
-void SortCapsulesToMachines(GatchaMachine* machines, Capsule* capsules)
+void SortCapsulesToMachines(GatchaMachine* machines, Capsule** capsules)
 {
 	for (int i = 0; i < MAX_MACHINES; i++)
 	{
@@ -11,13 +11,13 @@ void SortCapsulesToMachines(GatchaMachine* machines, Capsule* capsules)
 		int num_of_epics = 0, num_of_legend = 0;
 		for (int j = 0; j < MAX_CAPSULES; j++)
 		{
-			CapType curr_capsule_type = capsules[j].GetType();
-			Rarity curr_capsule_rarity = capsules[j].GetRarity();
+			CapType curr_capsule_type = capsules[j]->GetType();
+			Rarity curr_capsule_rarity = capsules[j]->GetRarity();
 			if (curr_capsule_type == _Candy)
 			{
-				if (current_machine_color == capsules[j].GetColor())
+				if (current_machine_color == capsules[j]->GetColor())
 				{
-					if (machines[i].InsertCapsule(&capsules[j]))
+					if (machines[i].InsertCapsule(capsules[j]))
 					{
 						if (curr_capsule_rarity == Legendary)
 						{
@@ -32,9 +32,9 @@ void SortCapsulesToMachines(GatchaMachine* machines, Capsule* capsules)
 			}
 			if (curr_capsule_type == _Toy)
 			{
-				if (current_machine_theme == static_cast<Toy*>(&capsules[j])->GetCategory())
+				if (current_machine_theme == static_cast<Toy*>(capsules[j])->GetCategory())
 				{
-					if (machines[i].InsertCapsule(&capsules[j]))
+					if (machines[i].InsertCapsule(capsules[j]))
 					{
 						if (curr_capsule_rarity == Legendary)
 						{
@@ -62,12 +62,12 @@ void SortCapsulesToMachines(GatchaMachine* machines, Capsule* capsules)
 
 int FindCheapestMachineCost(GatchaMachine* machines)
 {
-	int min = 0;
-	for (int i = 0; i < MAX_MACHINES; i++)
+	int min = machines[0].GetPrice();
+	for (int i = 1; i < MAX_MACHINES; i++)
 	{
-		if (machines[i].GetPrice() < min)
+		if (machines[i].GetTheme() != None)
 		{
-			min = machines[i].GetPrice();
+			if (machines[i].GetPrice() < min) min = machines[i].GetPrice();
 		}
 	}
 	return min;
@@ -145,21 +145,21 @@ int main()
 	Toy toy34("Chang", Common, _Toy, "Orange", FullMetalAlchemist);
 
 	//candies
-	Candy candy1("Air Heads", Common, _Candy, "Yellow", "peach");
-	Candy candy2("Bubble", Common, _Candy, "Yellow", "Strawberry");
-	Candy candy3("Jelly", Common, _Candy, "Yellow", "Grape");
-	Candy candy4("Kit Kat", Common, _Candy, "Yellow", "Chocolate");
-	Candy candy5("Skittles", Common, _Candy, "Yellow", "Sour");
-	Candy candy6("M&M's", Common, _Candy, "Yellow", "Butter");
-	Candy candy7("Starburst", Common, _Candy, "Yellow", "Grape");
-	Candy candy8("Snickers", Common, _Candy, "Yellow", "Chocolate");
-	Candy candy9("Hershey", Common, _Candy, "Yellow", "Chocolate");
-	Candy candy10("Candy corn", Common, _Candy, "Yellow", "Corn");
-	Candy candy11("Bazooka", Common, _Candy, "Yellow", "Strawberry");
-	Candy candy12("Caramel", Common, _Candy, "Yellow", "Caramel");
-	Candy candy13("Chocolate", Common, _Candy, "Yellow", "Chocolate");
-	Candy candy14("Loly Pop", Common, _Candy, "Yellow", "Lemon");
-	Candy candy15("Oreo", Common, _Candy, "Yellow", "Chocolate");
+	Candy candy1("Air Heads", Rare, _Candy, "Yellow", "peach");
+	Candy candy2("Bubble", Epic, _Candy, "Yellow", "Strawberry");
+	Candy candy3("Jelly", Common, _Candy, "Red", "Grape");
+	Candy candy4("Kit Kat", Legendary, _Candy, "Red", "Chocolate");
+	Candy candy5("Skittles", Common, _Candy, "Red", "Sour");
+	Candy candy6("M&M's", Common, _Candy, "Black", "Butter");
+	Candy candy7("Starburst", Rare, _Candy, "Black", "Grape");
+	Candy candy8("Snickers", Common, _Candy, "Black", "Chocolate");
+	Candy candy9("Hershey", Epic, _Candy, "Blue", "Chocolate");
+	Candy candy10("Candy corn", Common, _Candy, "Blue", "Corn");
+	Candy candy11("Bazooka", Rare, _Candy, "Blue", "Strawberry");
+	Candy candy12("Caramel", Common, _Candy, "Blue", "Caramel");
+	Candy candy13("Chocolate", Epic, _Candy, "Orange", "Chocolate");
+	Candy candy14("Loly Pop", Common, _Candy, "Orange", "Lemon");
+	Candy candy15("Oreo", Legendary, _Candy, "Orange", "Chocolate");
 	
 	capsule_array[0] = &toy0;
 	capsule_array[1] = &toy1;
@@ -212,11 +212,12 @@ int main()
 	capsule_array[48] = &candy14;
 	capsule_array[49] = &candy15;
 
-	SortCapsulesToMachines(machine_array, *capsule_array);
+	SortCapsulesToMachines(machine_array, capsule_array);
 
 	int choose = 0;
+	int player_money = player.GetMoney();
 	int cheapest = FindCheapestMachineCost(machine_array);
-	while (CheckIfGameContinues(player.GetMoney(), cheapest))
+	while (CheckIfGameContinues(player_money, cheapest))
 	{
 		std::cout << "\n-----------MENU:-----------\n"
 			<< "1-Exit\n";
@@ -232,9 +233,10 @@ int main()
 		std::cout << ">";
 		std::cin >> choose;
 		if (choose == 1) return 0;
-		else if (choose < counter || choose > 0)
+		else if (choose < counter && choose > 0)
 		{
 			player.PlayMachine(machine_array[choose - 2]);
+			player_money = player.GetMoney();
 		}
 		else std::cout << "Invalid input. Please try again" << std::endl;
 	}

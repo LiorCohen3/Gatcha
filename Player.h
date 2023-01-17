@@ -13,7 +13,6 @@ public:
 	int GetMoney() { return m_money; }
 	string GetPlayerName() {return m_name;}
 	void PrintWonCap();
-	int CalculateAward(Capsule* win_cap, GatchaMachine machine);
 private:
 	std::string				m_name;
 	int						m_money;
