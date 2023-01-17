@@ -8,6 +8,7 @@ public:
     Candy() {}
     Candy(std::string name, Rarity rarity, CapType type, std::string color, std::string flavor);
     ~Candy() {}
+
 private:
 };
 

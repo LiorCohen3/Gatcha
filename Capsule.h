@@ -17,6 +17,7 @@ public:
     CapType GetType() { return m_type; }
     std::string GetName() { return m_name; }
     Rarity GetRarity() { return m_rarity; }
+
 private:
     std::string     m_name;
     Rarity          m_rarity;

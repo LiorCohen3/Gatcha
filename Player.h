@@ -9,11 +9,16 @@ public:
 	Player(std::string name);
 	~Player() {}
 	void PlayMachine(GatchaMachine machine);
-	int CalculateEarnings();
+	void CalculateEarnings();
 	int GetMoney() { return m_money; }
+	string GetPlayerName() {return m_name;}
+	void PrintWonCap();
+	int CalculateAward(Capsule* win_cap, GatchaMachine machine);
 private:
 	std::string				m_name;
 	int						m_money;
+	int						m_invested_money;
+	int 					m_won_money;
 	std::vector<Capsule*>	m_capsules_won;
 };
 
