@@ -7,9 +7,9 @@ Toy::Toy()
     Figure()
     {}
 /*-------------------------------------------------------------------------------*/
-Toy::Toy(std::string name, Rarity rarity, int worth, CapType type, std::string color, Series theme)
+Toy::Toy(std::string name, Rarity rarity, CapType type, std::string color, Series theme)
     :
-    Capsule(name, rarity, worth, type, color),
+    Capsule(name, rarity, type, color),
     Figure(theme)
     {}
 /*-------------------------------------------------------------------------------*/

@@ -9,17 +9,18 @@ class Capsule :
 {
 public:
     Capsule();
-    Capsule(std::string name, Rarity rarity, int worth, CapType type, std::string color);
-    virtual ~Capsule() = 0; // abstract
+    Capsule(std::string name, Rarity rarity, CapType type, std::string color);
+    virtual ~Capsule() = 0 {} // abstract
 
-    virtual float CalculateRarity();
+    virtual void CalculateWorth(int machine_cost);
+    virtual float GetWorth() { return m_worth; }
     CapType GetType() { return m_type; }
     std::string GetName() { return m_name; }
     Rarity GetRarity() { return m_rarity; }
 private:
     std::string     m_name;
     Rarity          m_rarity;
-    int             m_worth;
+    float           m_worth;
     CapType         m_type;
 };
 

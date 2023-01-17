@@ -9,24 +9,37 @@ GatchaMachine::GatchaMachine()
 	{}
 
 /*-------------------------------------------------------------------------------*/
-GatchaMachine::GatchaMachine(Series theme, int capsule_cost, std::vector<Capsule*> capsules, std::string color)
+GatchaMachine::GatchaMachine(Series theme, int capsule_cost, std::string color)
 	:
     m_theme(theme),
 	m_capsule_cost(capsule_cost),
-	m_capsules(capsules),
-	ShellColor(color)
-	{}
+	ShellColor(color) {}
 
 /*-------------------------------------------------------------------------------*/
-int GatchaMachine::RollForCapsule(int num)
+Capsule* GatchaMachine::RollForCapsule(int num)
 {
+	Capsule* rolled_capsule = m_capsules[num];
+	m_capsules.erase(m_capsules.begin()+num);
+	return rolled_capsule;
+}
 
+/*-------------------------------------------------------------------------------*/
+GatchaMachine& GatchaMachine::operator = (const GatchaMachine& machine)
+{
+	if (this != &machine)
+	{
+		m_theme = machine.m_theme;
+		m_capsule_cost = machine.m_capsule_cost;
+		SetColor(machine.GetColor());
+	}
+	return *this;
 }
 
 /*-------------------------------------------------------------------------------*/
 bool GatchaMachine::InsertCapsule(Capsule* capsule)
 {
 	if (capsule == NULL) return false;
+	capsule->CalculateWorth(GetPrice());
 	if (m_capsules.size() < MAX_CAPSULES)
 	{
 		m_capsules.push_back(capsule);
@@ -70,7 +83,6 @@ void GatchaMachine::AddEpicsFromExtra(int num)
 	}
 	std::cout << "There are not enough epics in extras" << std::endl;
 }
-
 /*-------------------------------------------------------------------------------*/
 void GatchaMachine::AddLegendarysFromExtra() 
 {

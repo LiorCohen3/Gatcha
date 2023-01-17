@@ -21,6 +21,6 @@ enum Rarity
 
 enum CapType
 {
-	Candy = 1,
-	Toy
+	_Candy = 1,
+	_Toy
 };

@@ -1,14 +1,8 @@
 #include "Candy.h"
 
 /*-------------------------------------------------------------------------------*/
-Candy::Candy()
+Candy::Candy(std::string name, Rarity rarity, CapType type, std::string color, std::string flavor)
     :
-    Capsule(),
-    Edible()
-    {}
-/*-------------------------------------------------------------------------------*/
-Candy::Candy(std::string name, Rarity rarity, int worth, CapType type, std::string color, std::string flavor)
-    :
-    Capsule(name, rarity, worth, type, color),
+    Capsule(name, rarity, type, color),
     Edible(flavor)
     {}
